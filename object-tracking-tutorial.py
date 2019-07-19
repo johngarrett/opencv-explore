@@ -11,29 +11,27 @@ if __name__ == '__main__':
     tracker_types = ['BOOSTING', 'MIL','KCF', 'TLD', 'MEDIANFLOW', 'GOTURN', 'MOSSE', 'CSRT']
     tracker_type = tracker_types[2]
  
-    if int(minor_ver) < 3:
-        tracker = cv2.Tracker_create(tracker_type)
-    else:
-        if tracker_type == 'BOOSTING':
-            tracker = cv2.TrackerBoosting_create()
-        if tracker_type == 'MIL':
-            tracker = cv2.TrackerMIL_create()
-        if tracker_type == 'KCF':
-            tracker = cv2.TrackerKCF_create()
-        if tracker_type == 'TLD':
-            tracker = cv2.TrackerTLD_create()
-        if tracker_type == 'MEDIANFLOW':
-            tracker = cv2.TrackerMedianFlow_create()
-        if tracker_type == 'GOTURN':
-            tracker = cv2.TrackerGOTURN_create()
-        if tracker_type == 'MOSSE':
-            tracker = cv2.TrackerMOSSE_create()
-        if tracker_type == "CSRT":
-            tracker = cv2.TrackerCSRT_create()
+    if tracker_type == 'BOOSTING':
+        tracker = cv2.TrackerBoosting_create()
+    elif tracker_type == 'MIL':
+        tracker = cv2.TrackerMIL_create()
+    elif tracker_type == 'KCF':
+        tracker = cv2.TrackerKCF_create()
+    elif tracker_type == 'TLD':
+        tracker = cv2.TrackerTLD_create()
+    elif tracker_type == 'MEDIANFLOW':
+        tracker = cv2.TrackerMedianFlow_create()
+    elif tracker_type == 'GOTURN':
+        tracker = cv2.TrackerGOTURN_create()
+    elif tracker_type == 'MOSSE':
+        tracker = cv2.TrackerMOSSE_create()
+    elif tracker_type == "CSRT":
+        tracker = cv2.TrackerCSRT_create()
  
-    # Read video
-    video = cv2.VideoCapture("videos/chaplin.mp4")
- 
+    # Read videod
+    video = cv2.VideoCapture("https://stream-uc2-bravo.dropcam.com/nexus_aac/2c75a4adf261417a9671ab08c793a2ee/chunklist_w301198098.m3u8?public=IQLuLbewPe")
+
+    #video = cv2.VideoCapture("https://stream-uc2-bravo.dropcam.com/nexus_aac/2c75a4adf261417a9671ab08c793a2ee/media_w301198098_8.ts?public=IQLuLbewPe")
     # Exit if video not opened.
     if not video.isOpened():
         print("Could not open video")
