@@ -10,7 +10,7 @@ hog = cv2.HOGDescriptor()
 hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 
 cv2.startWindowThread()
-capture = cv2.VideoCapture("videos/chaplin.mp4")
+capture = cv2.VideoCapture("videos/pedestrians.mp4")
 
 while True:
     ok, frame = capture.read()
@@ -25,7 +25,7 @@ while True:
     #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
 
     #apply threshold
-    #ret, frame = cv2.threshold(frame, 80, 255, cv2.THRESH_BINARY)
+    ret, frame = cv2.threshold(frame, 80, 255, cv2.THRESH_BINARY)
     
     boxes, weights = hog.detectMultiScale(frame, winStride=(8, 8))
 
