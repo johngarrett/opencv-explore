@@ -24,12 +24,12 @@ while True:
     # turn to grayscale
     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
 
-    # apply guasian blur
-    frame = cv2.GaussianBlur(frame, (5,5), 1)
+    # apply bilateral filter
+    frame = cv2.bilateralFilter(frame, 9, 75, 75)
     #apply threshold
     #ret, frame = cv2.threshold(frame, 80, 255, cv2.THRESH_BINARY)
     
-    boxes, weights = hog.detectMultiScale(frame, winStride=(4, 4), padding=(8,8), scale=1.05)
+    boxes, weights = hog.detectMultiScale(frame, winStride=(4, 4), padding=(8, 8), scale=1.05)
 
     rects = np.array([[x, y, x + w, y + h] for (x, y, w, h) in boxes])
     pick = non_max_suppression(rects, probs=None, overlapThresh=0.65)
@@ -42,7 +42,7 @@ while True:
             timer = cv2.getTickCount()
             fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
     
-            cv2.putText(frame, "FPS : " + str(int(fps)), (100,50), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (50,170,50), 2);
+            cv2.putText(frame, "FPS : " + str(int(fps)), (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (50, 170, 50), 2)
         
             cv2.imshow('frame', frame)
             cv2.waitKey(1)
