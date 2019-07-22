@@ -22,12 +22,14 @@ while True:
     frame = cv2.resize(frame, (640, 480))
 
     # turn to grayscale
-    #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
+    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
 
+    # apply guasian blur
+    frame = cv2.GaussianBlur(frame, (5,5), 1)
     #apply threshold
-    ret, frame = cv2.threshold(frame, 80, 255, cv2.THRESH_BINARY)
+    #ret, frame = cv2.threshold(frame, 80, 255, cv2.THRESH_BINARY)
     
-    boxes, weights = hog.detectMultiScale(frame, winStride=(8, 8))
+    boxes, weights = hog.detectMultiScale(frame, winStride=(4, 4), padding=(8,8), scale=1.05)
 
     rects = np.array([[x, y, x + w, y + h] for (x, y, w, h) in boxes])
     pick = non_max_suppression(rects, probs=None, overlapThresh=0.65)
@@ -35,7 +37,7 @@ while True:
     # draw the final bounding boxes
     for (xA, yA, xB, yB) in pick:
             cv2.rectangle(frame, (xA, yA), (xB, yB), (0, 255, 0), 2)
-            print("{} original boxes, after suppression".format(len(boxes)))
+            print(f"{len(boxes)} original boxes, {len(pick)} after suppression")
     
             timer = cv2.getTickCount()
             fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
